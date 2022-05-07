@@ -25,7 +25,7 @@ create table tipo(
 	nombre varchar(25) not null,
 	imagen varchar(50) not null,
 	primary key (id)
-)
+);
 
 create table pokemon(
 	id integer not null unique auto_increment,  
@@ -38,7 +38,7 @@ create table pokemon(
 	primary key (id),
 	foreign key (tipo1) references tipo(id),
 	foreign key (tipo2) references tipo(id)
-)
+);
 
 /*
  * usuario solo la tabla pokemon y select en tipo
@@ -54,33 +54,33 @@ show grants for "pokedex"@"localhost";
 
 insert into tipo (nombre, imagen) values
 --1
-("Acero", "Tipo_acero.webp"),
-("Agua", "Tipo_agua.webp"),
-("Bicho", "Tipo_bicho.webp"),
-("Dragón", "Tipo_dragon.webp"),
+("Acero", "./tipos/Tipo_acero.webp"),
+("Agua", "./tipos/Tipo_agua.webp"),
+("Bicho", "./tipos/Tipo_bicho.webp"),
+("Dragï¿½n", "./tipos/Tipo_dragon.webp"),
 -- 5
-("Eléctrico", "Tipo_electrico.webp"),
-("Fantasma","Tipo_fantasma.webp"),
-("Fuego", "Tipo_fuego.webp"),
-("Hada", "Tipo_hada.webp"),
-("Hielo", "Tipo_hielo.webp"),
+("Elï¿½ctrico", "./tipos/Tipo_electrico.webp"),
+("Fantasma","./tipos/Tipo_fantasma.webp"),
+("Fuego", "./tipos/Tipo_fuego.webp"),
+("Hada", "./tipos/Tipo_hada.webp"),
+("Hielo", "./tipos/Tipo_hielo.webp"),
 -- 10
-("Lucha", "Tipo_lucha.webp"),
-("Normal", "Tipo_normal.webp"),
-("Planta", "Tipo_planta.webp"),
-("Psíquico", "Tipo_psiquico.webp"),
-("Roca", "Tipo_roca.webp"),
+("Lucha", "./tipos/Tipo_lucha.webp"),
+("Normal", "./tipos/Tipo_normal.webp"),
+("Planta", "./tipos/Tipo_planta.webp"),
+("Psï¿½quico", "./tipos/Tipo_psiquico.webp"),
+("Roca", "./tipos/Tipo_roca.webp"),
 -- 15
-("Siniestro", "Tipo_siniestro.webp"),
-("Tierra", "Tipo_tierra.webp"),
-("Veneno", "Tipo_veneno.webp"),
-("Volador", "Tipo_volador.webp"),
-("???", "Tipo_ .webp");
+("Siniestro", "./tipos/Tipo_siniestro.webp"),
+("Tierra", "./tipos/Tipo_tierra.webp"),
+("Veneno", "./tipos/Tipo_veneno.webp"),
+("Volador", "./tipos/Tipo_volador.webp"),
+("???", "./tipos/Tipo_ .webp");
 
 insert into pokemon (numero, nombre, descripcion, imagen, tipo1, tipo2) values
-(1, "Bulbasaur", "Una rara semilla fue plantada en su espalda al nacer. La planta brota y crece con este Pokémon.", "Bulbasaur.webp", 12, 17 ),
+(1, "Bulbasaur", "Una rara semilla fue plantada en su espalda al nacer. La planta brota y crece con este Pokï¿½mon.", "Bulbasaur.webp", 12, 17 ),
 (2, "Ivysaur", "Cuando el bulbo de su espalda crece, parece no poder ponerse de pie sobre sus patas traseras.", "Ivysaur.webp", 12, 17 ),
-(3, "Venusaur", "La planta florece cuando absorbe energía solar. Ésta le obliga a ponerse en busca de la luz solar.", "Venusaur.webp", 12, 17 ),
+(3, "Venusaur", "La planta florece cuando absorbe energï¿½a solar. ï¿½sta le obliga a ponerse en busca de la luz solar.", "Venusaur.webp", 12, 17 ),
 (4, "Charmander", "Prefiere los sitios calientes. Dicen que cuando llueve sale vapor de la punta de su cola.", "Charmander.webp", 7, null);
 -- 5 
 
