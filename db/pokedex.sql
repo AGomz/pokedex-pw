@@ -1,0 +1,100 @@
+ -- drop database if EXISTS podekex;
+-- drop database pokedex
+
+create database pokedex;
+/* 
+ use pokedex;
+*/
+create table login (
+	id integer unique auto_increment primary key,  
+	nombre varchar(25) not null,
+	email varchar(60) not null, 
+	password varchar(61) not null
+);
+
+create table usuario (
+	id integer not null unique auto_increment,  
+	login integer not null,
+	nombre varchar(25),
+	primary key (id),
+	foreign key (login) references login(id)
+);
+
+create table tipo(
+	id integer not null unique auto_increment,  
+	nombre varchar(25) not null,
+	imagen varchar(50) not null,
+	primary key (id)
+)
+
+create table pokemon(
+	id integer not null unique auto_increment,  
+	numero integer not null, 
+	nombre varchar(40) not null,
+	descripcion varchar(255) not null, 
+	imagen varchar(50) not null,
+	tipo1 integer not null,
+	tipo2 integer,
+	primary key (id),
+	foreign key (tipo1) references tipo(id),
+	foreign key (tipo2) references tipo(id)
+)
+
+/*
+ * usuario solo la tabla pokemon y select en tipo
+ u:p
+ pokedex:pokedex123
+ */
+create user "pokedex"@"localhost" identified by "pokedex123";
+grant select, insert, update, delete on pokedex.pokemon to "pokedex"@"localhost";
+grant select on pokedex.tipo to "pokedex"@"localhost";
+grant select on pokedex.login  to "pokedex"@"localhost";
+grant select on pokedex.usuario  to "pokedex"@"localhost";
+show grants for "pokedex"@"localhost";
+
+insert into tipo (nombre, imagen) values
+--1
+("Acero", "Tipo_acero.webp"),
+("Agua", "Tipo_agua.webp"),
+("Bicho", "Tipo_bicho.webp"),
+("Dragón", "Tipo_dragon.webp"),
+-- 5
+("Eléctrico", "Tipo_electrico.webp"),
+("Fantasma","Tipo_fantasma.webp"),
+("Fuego", "Tipo_fuego.webp"),
+("Hada", "Tipo_hada.webp"),
+("Hielo", "Tipo_hielo.webp"),
+-- 10
+("Lucha", "Tipo_lucha.webp"),
+("Normal", "Tipo_normal.webp"),
+("Planta", "Tipo_planta.webp"),
+("Psíquico", "Tipo_psiquico.webp"),
+("Roca", "Tipo_roca.webp"),
+-- 15
+("Siniestro", "Tipo_siniestro.webp"),
+("Tierra", "Tipo_tierra.webp"),
+("Veneno", "Tipo_veneno.webp"),
+("Volador", "Tipo_volador.webp"),
+("???", "Tipo_ .webp");
+
+insert into pokemon (numero, nombre, descripcion, imagen, tipo1, tipo2) values
+(1, "Bulbasaur", "Una rara semilla fue plantada en su espalda al nacer. La planta brota y crece con este Pokémon.", "Bulbasaur.webp", 12, 17 ),
+(2, "Ivysaur", "Cuando el bulbo de su espalda crece, parece no poder ponerse de pie sobre sus patas traseras.", "Ivysaur.webp", 12, 17 ),
+(3, "Venusaur", "La planta florece cuando absorbe energía solar. Ésta le obliga a ponerse en busca de la luz solar.", "Venusaur.webp", 12, 17 ),
+(4, "Charmander", "Prefiere los sitios calientes. Dicen que cuando llueve sale vapor de la punta de su cola.", "Charmander.webp", 7, null);
+-- 5 
+
+/*
+ "admin"
+password hash = $2y$10$q7SPSf5CBUR30fYFAOLKB..SZ.VDK3M8dFfiAfDcmxI/RyVdruNV2  60
+md5: 21232f297a57a5a743894a0e4a801fc3  32
+sha1 d033e22ae348aeb5660fc2140aec35850c4da997 40
+ */
+insert into login (nombre, email, password) values 
+("Admin", "admin@pokedex.com", "21232f297a57a5a743894a0e4a801fc3")
+
+insert into usuario (login, nombre) values
+(1, "Admin");
+
+	
+	
