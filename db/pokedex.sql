@@ -57,9 +57,9 @@ insert into tipo (nombre, imagen) values
 ("Acero", "./tipos/Tipo_acero.webp"),
 ("Agua", "./tipos/Tipo_agua.webp"),
 ("Bicho", "./tipos/Tipo_bicho.webp"),
-("Drag�n", "./tipos/Tipo_dragon.webp"),
+("Dragon", "./tipos/Tipo_dragon.webp"),
 -- 5
-("El�ctrico", "./tipos/Tipo_electrico.webp"),
+("Electrico", "./tipos/Tipo_electrico.webp"),
 ("Fantasma","./tipos/Tipo_fantasma.webp"),
 ("Fuego", "./tipos/Tipo_fuego.webp"),
 ("Hada", "./tipos/Tipo_hada.webp"),
@@ -68,7 +68,7 @@ insert into tipo (nombre, imagen) values
 ("Lucha", "./tipos/Tipo_lucha.webp"),
 ("Normal", "./tipos/Tipo_normal.webp"),
 ("Planta", "./tipos/Tipo_planta.webp"),
-("Ps�quico", "./tipos/Tipo_psiquico.webp"),
+("Psiquico", "./tipos/Tipo_psiquico.webp"),
 ("Roca", "./tipos/Tipo_roca.webp"),
 -- 15
 ("Siniestro", "./tipos/Tipo_siniestro.webp"),
@@ -77,12 +77,13 @@ insert into tipo (nombre, imagen) values
 ("Volador", "./tipos/Tipo_volador.webp"),
 ("???", "./tipos/Tipo_ .webp");
 
-insert into pokemon (numero, nombre, descripcion, imagen, tipo1, tipo2) values
-(1, "Bulbasaur", "Una rara semilla fue plantada en su espalda al nacer. La planta brota y crece con este Pok�mon.", "Bulbasaur.webp", 12, 17 ),
+insert into pokemon (numero, nombre, descripcion, imagen, tipo1, tipo2)
+values
+(1, "Bulbasaur", "Una rara semilla fue plantada en su espalda al nacer. La planta brota y crece con este Pokemon.", "Bulbasaur.webp", 12, 17 ),
 (2, "Ivysaur", "Cuando el bulbo de su espalda crece, parece no poder ponerse de pie sobre sus patas traseras.", "Ivysaur.webp", 12, 17 ),
-(3, "Venusaur", "La planta florece cuando absorbe energ�a solar. �sta le obliga a ponerse en busca de la luz solar.", "Venusaur.webp", 12, 17 ),
+(3, "Venusaur", "La planta florece cuando absorbe energia solar. Esta le obliga a ponerse en busca de la luz solar.", "Venusaur.webp", 12, 17 ),
 (4, "Charmander", "Prefiere los sitios calientes. Dicen que cuando llueve sale vapor de la punta de su cola.", "Charmander.webp", 7, null);
--- 5 
+
 
 /*
  "admin"
@@ -96,5 +97,7 @@ insert into login (nombre, email, password) values
 insert into usuario (login, nombre) values
 (1, "Admin");
 
-	
-	
+/*Para cambiar el nombre del campo imagen en la tabla tipo para que no haya conflictos al consultar por ambas imágenes al mismo tiempo
+*/
+ALTER TABLE tipo
+     CHANGE imagen img varchar(50) not null;
