@@ -1,4 +1,3 @@
-
 <?php
 
 // Obtener los datos enviados por el formulario
@@ -31,9 +30,10 @@ if (!$nombre || !$descripcion || !$numero || !$tipo1 || !$tipo2) {
     if ($imagen) {
         // Obtiene la extension del archivo *.jpg, *.gif, etc
         $extensionArchivo = pathinfo($imagen['name'], PATHINFO_EXTENSION);
-
         $ultimoId = $conexion->insert_id;
-        $ruta_imagen = "./uploads/$ultimoId.$extensionArchivo";
+
+        $archivo = $ultimoId . '.' . $extensionArchivo;
+        $ruta_imagen = "./uploads/$archivo";
         move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_imagen);
 
         // Se actualiza el campo con la ruta de la imagen recien subida
@@ -41,7 +41,7 @@ if (!$nombre || !$descripcion || !$numero || !$tipo1 || !$tipo2) {
         $query = "UPDATE pokemon SET imagen = ? WHERE id = ?";
         $stmt = $conexion->prepare($query);
 
-        $stmt->bind_param("si", $ruta_imagen, $ultimoId);
+        $stmt->bind_param("si", $archivo, $ultimoId);
         $stmt->execute();
     }
 }
