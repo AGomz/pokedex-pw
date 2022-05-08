@@ -1,0 +1,21 @@
+body{
+    /*padding-top: 100px;*/
+    background-image: url("../img/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+html{
+    height: 100%;
+}
+.titulo{
+    text-align: center;
+    margin-top: 3%;
+}
+footer{
+    padding: 2em;
+    color: white;
+    text-align: center;
+    /*background-color: #FF6347;*/
+    background-color: black;
+}
