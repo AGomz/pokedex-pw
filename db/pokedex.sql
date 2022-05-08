@@ -91,7 +91,7 @@ md5: 21232f297a57a5a743894a0e4a801fc3  32
 sha1 d033e22ae348aeb5660fc2140aec35850c4da997 40
  */
 insert into login (nombre, email, password) values 
-("Admin", "admin@pokedex.com", "21232f297a57a5a743894a0e4a801fc3")
+("Admin", "admin@pokedex.com", "21232f297a57a5a743894a0e4a801fc3");
 
 insert into usuario (login, nombre) values
 (1, "Admin");

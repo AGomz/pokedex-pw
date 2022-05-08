@@ -39,7 +39,8 @@
                                 <a class="nav-link" href="./agregar_pokemon.php">Agregar</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Modificar</a>
+                                <!-- TODO: El id es harcodeado, chequear luego en el listado que corresponda a cada uno  -->
+                                <a class="nav-link" href="./modificar_pokemon.php?pokemonId=1">Modificar</a>
                             </li>
                         <?php
                         }

@@ -8,7 +8,8 @@
     <!-- favicon -->
     <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
     <!-- Bootsrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script type="text/javascript" src="js/cargar_imagen.js"></script>
     <title>Pokédex</title>
 </head>
@@ -27,11 +28,10 @@
         die();
     }
 
-    // Si vino por post va a intentar guardar el pokemon en la bd
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $pokemonId = isset($_GET['pokemonId']) ? $_GET['pokemonId'] : null;
 
-        include('./acciones/agregar_pokemon.php');
-    }
+    include('./acciones/modificar_pokemon.php');
+    include('./acciones/obtener_pokemon.php');
 
     ?>
     <header>
@@ -42,7 +42,8 @@
                     <img src="./img/logo.png" alt="Logo Pókedex" class="d-inline-block align-text-top">
                     Pokédex
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
+                        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -50,7 +51,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <?php
                         if ($inicioSession) {
-                        ?>
+                            ?>
                             <!-- Esta logueado  -->
                             <li class="nav-item">
                                 <a class="nav-link" href="./agregar_pokemon.php">Agregar</a>
@@ -58,24 +59,24 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Modificar</a>
                             </li>
-                        <?php
+                            <?php
                         }
                         ?>
                     </ul>
                     <ul class="navbar-nav mr-auto mb-2 mb-md-2">
                         <?php
                         if ($inicioSession) {
-                        ?>
+                            ?>
                             <!-- Esta logueado -->
                             <li class="nav-item px-2">
-                                <span class="text-white fw-bold">
-                                    <?php echo strtoupper($_SESSION['logueado']); ?>
-                                </span>
+                                    <span class="text-white fw-bold">
+                                        <?php echo strtoupper($_SESSION['logueado']); ?>
+                                    </span>
                                 <a class="btn btn-primary btn-sm" href="./acciones/logout.php">Logout</a>
                             </li>
-                        <?php
+                            <?php
                         } else {
-                        ?>
+                            ?>
                             <!-- No esta logueado -->
                             <li class="nav-item px-2">
                                 <a class="btn btn-secondary btn-sm" href="login.php">Login</a>
@@ -83,7 +84,7 @@
                             <li class="nav-item px-2">
                                 <a class="btn btn-primary btn-sm" href="registro.php">Registrarse</a>
                             </li>
-                        <?php
+                            <?php
                         }
                         ?>
                     </ul>
@@ -95,31 +96,39 @@
     <main>
 
     </main>
-    <h1 class="text-center pt-4">Agregar un nuevo Pokemón</h1>
+    <h1 class="text-center pt-4">Modificar un Pokemón</h1>
 
-    <form action="./agregar_pokemon.php" method="POST" enctype="multipart/form-data" class="mx-5">
+    <form action="./modificar_pokemon.php" method="POST" enctype="multipart/form-data" class="mx-5">
         <?php
         // Verifica si hubo errores al subir el archivo
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($error)) {
                 echo "<div class='alert alert-danger' role='alert'>$error</div>";
             } else {
-                echo "<div class='alert alert-info' role='alert'>Nuevo Pokemón agregado</div>";
+                echo "<div class='alert alert-info text-center' role='alert'>¡Pokemón modificado con éxito!</div>";
             }
         }
         ?>
+
+        <input id="pokemonId" name="pokemonId" type="hidden" <?php echo "value=". $fila['id']?>>
+
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del pokemón">
+            <input type="text" class="form-control" id="nombre" name="nombre"
+                   placeholder="Nombre del pokemón" <?php echo "value=". $fila['nombre']?>>
         </div>
         <div class="mb-3">
             <label for="nombre" class="form-label">Número identificador</label>
-            <input type="text" class="form-control" id="identificador" name="identificador" placeholder="Ingrese el número identificador del pokemón">
+            <input type="number" class="form-control" id="identificador" name="identificador"
+                   placeholder="Ingrese el número identificador del pokemón"
+                   <?php echo "value=". $fila['numero']?>>
         </div>
         <div class="mb-3">
             <label for="descripcion" class="form-label">Descripción</label>
-            <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+            <textarea class="form-control" id="descripcion" name="descripcion" rows="3"
+                      style="resize:none" maxlength="150"><?php echo $fila['descripcion']?></textarea>
         </div>
+
         <div>
             <label class="form-label">Seleccionar tipo(s)</label>
             <select class="form-select" name="tipo1">
@@ -132,45 +141,57 @@
                 $stmt->execute();
 
                 $datos = $stmt->get_result();
-                $fila = $datos->fetch_all(MYSQLI_ASSOC);
+                $tipos = $datos->fetch_all(MYSQLI_ASSOC);
 
-                foreach ($fila as $tipo) {
+                foreach ($tipos as $tipo) {
                     $idTipo = $tipo["id"];
                     $nombreTipo = $tipo["nombre"];
-                    echo "<option value=\"$idTipo\">$nombreTipo</option>";
+                    $isSelected = "";
+
+                    if ($fila["tipo1"] == $tipo["id"])
+                        $isSelected = 'selected';
+
+                    echo "<option value=\"$idTipo\" $isSelected>$nombreTipo</option>";
                 }
 
                 ?>
             </select>
             <select class="form-select" name="tipo2">
-                <option value="NULL">Nulo</option>";
+                <option value="NULL">Seleccione tipo 2</option>";
                 <?php
-                foreach ($fila as $tipo) {
+                foreach ($tipos as $tipo) {
                     $idTipo = $tipo["id"];
                     $nombreTipo = $tipo["nombre"];
-                    echo "<option value=\"$idTipo\">$nombreTipo</option>";
+                    $isSelected = "";
+
+                    if ($fila["tipo2"] == $tipo["id"])
+                        $isSelected = 'selected';
+
+                    echo "<option value=\"$idTipo\" $isSelected>$nombreTipo</option>";
                 }
                 ?>
             </select>
         </div>
 
         <div class="mt-3">
-            <label for="imagen" class="form-label">Agregar una imagen</label>
+            <label for="imagen" class="form-label">Modificar imagen</label>
             <input class="form-control" type="file" id="imagen" name="imagen" accept="image/*"
-                   onchange="onFileSelected(event)">
+                <?php echo "value=./img/". $fila['imagen']?> onchange="onFileSelected(event)">
 
             <img id="pokemonAvatar" height="200px" class="mt-2" alt="avatar"
-                src="img/pokemon-placeholder.jpeg">
+                <?php echo "src=./img/". $fila['imagen']?>>
         </div>
 
-        <button type="submit" class="btn btn-primary my-3">Agregar</button>
+        <button type="submit" class="btn btn-primary my-3">Modificar</button>
     </form>
 
     <footer>
 
     </footer>
     <!-- Bootstrap funciones js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    </body>
 
 </html>
