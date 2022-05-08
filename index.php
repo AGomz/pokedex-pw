@@ -9,6 +9,7 @@
     <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
     <!-- Bootsrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/estiloIndex.css">
     <title>Pokédex</title>
 </head>
 
@@ -74,6 +75,21 @@
             </div>
         </nav>
     </header>
+
+    <!--Búsqueda-->
+    <nav class="navbar navbar-light bg-light nav-busqueda ">
+        <div class="container-fluid justify-content-center">
+            <span class="navbar-text me-2">Buscador:</span>
+            <form class="d-flex w-75" action="buscarPokemon.php" method="POST">
+                <input class="form-control me-2" type="text" name="busqueda" placeholder="Ingrese nombre, tipo o id" aria-label="Search">
+                <input type="submit" class="btn btn-outline-dark" name="buscar" value="Buscar">
+            </form>
+        </div>
+    </nav>
+    <h1 class="titulo">Pokédex</h1>
+    <?php
+    include_once("mostrarListaPokemon.php");
+    ?>
 
     <main>
 
