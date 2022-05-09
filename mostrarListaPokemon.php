@@ -15,13 +15,20 @@ $consultaConDato = "SELECT DISTINCT p.numero, p.nombre, p.imagen, t.img, p.id
 $consultaTodos = "SELECT p.numero, p.nombre, p.imagen, t.img, p.id
                  FROM pokemon p JOIN tipo t ON p.tipo1=t.id";
 
-if ($datoABuscar) {
+$pokemonNoEncontrado = false;
 
+if ($datoABuscar) {
     $comando = $conexion->prepare($consultaConDato);
     $comando->bind_param("ssi", $datoABuscar, $datoABuscar, $datoABuscar);
     $comando->execute();
 
     $resultado = $comando->get_result();
+
+    if ($resultado->num_rows == 0) {
+        $pokemonNoEncontrado = true;
+        $resultado = $conexion->query($consultaTodos);
+    }
+
 } else {
     $resultado = $conexion->query($consultaTodos);
     if ($resultado->num_rows == 0) {
@@ -34,21 +41,23 @@ if ($datoABuscar) {
 }
 
 if ($resultado->num_rows > 0) {
-    $thBorrar = $logueado ? "<th>Borrar</th>" : "";
-    $thModificar = $logueado ? "<th>Modificar</th>" : "";
+    $thAcciones = $logueado ? "<th colspan='2' class='text-center'>Acciones</th>" : "";
+
+    if ($pokemonNoEncontrado) {
+        echo "<div class='alert alert-warning w-75 mx-auto' role='alert'>
+                Pokemon no encontrado :(
+             </div>";
+    }
 
     echo "<div class='w-75 mx-auto mt-5 mb-5'>
-                <table class='table align-middle'>
+                <table class='table align-middle table-hover'>
                 <thead class='table-dark'>
                 <tr>
                     <th>Número</th>
                     <th>Nombre</th>
                     <th>Imagen</th>
                     <th>Tipo</th>
-
-                    $thBorrar
-                    $thModificar
-
+                    $thAcciones
                  </tr>
                  </thead>";
 
