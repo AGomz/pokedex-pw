@@ -34,21 +34,17 @@ if ($datoABuscar) {
 }
 
 if ($resultado->num_rows > 0) {
-    $thBorrar = $logueado ? "<th>Borrar</th>" : "";
-    $thModificar = $logueado ? "<th>Modificar</th>" : "";
+    $thAcciones = $logueado ? "<th colspan='2' class='text-center'>Acciones</th>" : "";
 
     echo "<div class='w-75 mx-auto mt-5 mb-5'>
-                <table class='table align-middle'>
+                <table class='table align-middle table-hover'>
                 <thead class='table-dark'>
                 <tr>
                     <th>Número</th>
                     <th>Nombre</th>
                     <th>Imagen</th>
                     <th>Tipo</th>
-
-                    $thBorrar
-                    $thModificar
-
+                    $thAcciones
                  </tr>
                  </thead>";
 
