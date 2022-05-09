@@ -16,6 +16,25 @@ footer{
     padding: 2em;
     color: white;
     text-align: center;
-    /*background-color: #FF6347;*/
     background-color: black;
+}
+
+/*Pagina de detalle de los pokemones*/
+.container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 500px);
+    width: 90%;
+    margin: 5% auto;
+    padding: 2em;
+    outline: 0.2em solid white;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: black;
+}
+.img-pokemon{
+    width: 400px;
+    height: 400px;
+}
+.img-tipo{
+    width: 80px;
+    height: 25px;
 }
