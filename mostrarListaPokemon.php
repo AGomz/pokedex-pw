@@ -2,6 +2,7 @@
 
 include_once("config/conexion.php");
 include_once('./acciones/generar_tabla_borrar.php');
+include_once('./acciones/generar_tabla_modificar.php');
 
 $logueado = isset($_SESSION['logueado']) ? True : False;
 
@@ -34,6 +35,7 @@ if ($datoABuscar) {
 
 if ($resultado->num_rows > 0) {
     $thBorrar = $logueado ? "<th>Borrar</th>" : "";
+    $thModificar = $logueado ? "<th>Modificar</th>" : "";
 
     echo "<div class='w-75 mx-auto mt-5 mb-5'>
                 <table class='table align-middle'>
@@ -45,6 +47,7 @@ if ($resultado->num_rows > 0) {
                     <th>Tipo</th>
 
                     $thBorrar
+                    $thModificar
 
                  </tr>
                  </thead>";
@@ -54,6 +57,7 @@ if ($resultado->num_rows > 0) {
 
         // Genera un html con una ventana modal de bootstrap para confirmar borrado
         $modalBorrar = $logueado ? $modalBorrar = generarCeldaModalBorrarPokemon($row['id']) : "";
+        $botonModificar = $logueado ? $botonModificar = generarBotonModificar($row['id']) : "";
 
         echo "<tr class='table-light'>
                      <td>" . $row['numero'] . "</td>" .
@@ -63,6 +67,9 @@ if ($resultado->num_rows > 0) {
 
             // Borrar pokemon sólo si esta logueado
             "$modalBorrar" .
+
+            // Modificar pokemon sólo si esta logueado
+            "$botonModificar" .
 
             "</tr>";
     }

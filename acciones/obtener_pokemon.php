@@ -1,4 +1,5 @@
 <?php
+$pokemonId = isset($_GET['pokemonId']) ? $_GET['pokemonId'] : null;
 
 if (!$pokemonId) {
     // Si no se manda pokemonId en la url volvemos al index

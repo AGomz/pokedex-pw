@@ -36,7 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $extensionArchivo = pathinfo($imagen['name'], PATHINFO_EXTENSION);
 
             $ruta_imagen = "$pokemonId.$extensionArchivo";
-            $ruta_destino = "./img/$ruta_imagen";
+            $ruta_destino = "./uploads/$ruta_imagen";
+
+//            if (file_exists($ruta_destino)) {
+//                chmod($ruta_destino,0755); //Change the file permissions if allowed
+//                unlink($ruta_destino); //remove the file
+//            }
+
             move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_destino);
 
             // Se actualiza el campo con la ruta de la imagen recien subida

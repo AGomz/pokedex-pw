@@ -89,7 +89,7 @@ INSERT INTO `tipo` (`id`, `nombre`, `img`) VALUES
 (16, 'Tierra', 'Tipo_tierra.webp'),
 (17, 'Veneno', 'Tipo_veneno.webp'),
 (18, 'Volador', 'Tipo_volador.webp'),
-(19, '???', 'Tipo_ .webp');
+(19, '???', 'Tipo_.webp');
 
 -- --------------------------------------------------------
 
