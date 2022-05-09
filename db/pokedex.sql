@@ -34,7 +34,7 @@ CREATE TABLE `pokemon` (
   `numero` int(11) NOT NULL,
   `nombre` varchar(40) CHARACTER SET latin1 NOT NULL,
   `descripcion` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `imagen` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `imagen` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
   `tipo1` int(11) NOT NULL,
   `tipo2` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
